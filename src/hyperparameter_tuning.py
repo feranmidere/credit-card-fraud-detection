@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import *
 import xgboost as xgb
 import pandas as pd
-from scipy.stats import randint, uniform
+from scipy.stats import randint, uniform, loguniform
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 import joblib as jb
 
@@ -19,18 +19,23 @@ models = {
 
 param_distributions = {
     'RandomForest': {
-        'n_estimators': randint(50, 200),
+        'n_estimators': randint(100, 1000),
         'max_depth': randint(3, 20),
-        'min_samples_split': randint(2, 10),
-        'min_samples_leaf': randint(1, 10),
-        'max_features': ['sqrt', 'log2']
+        'min_samples_split': randint(2, 20),
+        'min_samples_leaf': randint(1, 20),
+        'max_features': uniform(0.3, 0.7),
+        'bootstrap': [True, False],
     },
     'XGBoost': {
-        'n_estimators': randint(50, 200),
-        'max_depth': randint(3, 20),
-        'learning_rate': uniform(0.01, 0.3),
+        'n_estimators': randint(100, 2000),
+        'learning_rate': loguniform(0.001, 0.3),
+        'max_depth': randint(3, 12),
+        'min_child_weight': loguniform(1, 100),
+        'gamma': loguniform(1e-3, 10),
         'subsample': uniform(0.5, 0.5),
-        'colsample_bytree': uniform(0.5, 0.5)
+        'colsample_bytree': uniform(0.5, 0.5),
+        'reg_lambda': loguniform(1e-3, 1000),
+        'reg_alpha': loguniform(1e-3, 100),
     }
 }
 
