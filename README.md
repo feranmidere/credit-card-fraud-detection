@@ -19,7 +19,7 @@ This project analyzes **credit card fraud data** and builds machine learning mod
 
 In order to reproduce the results, run the runner.py file in the src folder.
 
-## 📊 Features
+## Features
 
 * Exploratory data analysis (EDA)
 * Preprocessing and feature scaling
@@ -30,14 +30,14 @@ In order to reproduce the results, run the runner.py file in the src folder.
 
 ---
 
-## 📈 Results
+## Results
 
 * Evaluation metrics include **Precision, Recall, F1-score, ROC AUC, and PR AUC**.
 * Trade-offs between precision and recall are explored in the context of fraud detection.
 
 ---
 
-## 📜 License
+## License
 
 This project is released under the **MIT License**.
 
