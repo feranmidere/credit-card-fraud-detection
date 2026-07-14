@@ -1,10 +1,16 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import *
+from imblearn.pipeline import Pipeline
+from imblearn.over_sampling import SMOTE
 import xgboost as xgb
 import pandas as pd
 from scipy.stats import randint, uniform, loguniform
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 import joblib as jb
+
+rf_smote = Pipeline([
+    
+])
 
 data = pd.read_csv('../data/train_resampled.csv')
 X, y = data.drop(columns=['Class']), data['Class']
