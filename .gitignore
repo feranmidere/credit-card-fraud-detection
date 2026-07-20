@@ -1,5 +1,6 @@
 data/creditcard.csv
 data/test.csv
 data/train.csv
-data/val.csv
-data/train_resampled.csv
+*.egg-info/
+__pycache__/
+*.py[cod]
