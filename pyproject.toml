@@ -16,7 +16,6 @@ dependencies = [
     "pyyaml",
     "joblib",
     "imblearn",
-    "zipfile",
     "pathlib",
     "kaggle",
     "scipy"
