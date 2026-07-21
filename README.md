@@ -29,24 +29,6 @@ An end-to-end Machine Learning microservice designed to detect real-time fraudul
 
 ---
 
-## 📂 Project Structure
-
-```text
-credit-card-fraud-detection/
-├── app/                    # FastAPI microservice application
-│   └── main.py             # API endpoints, request validation & logic
-├── fraud_detection/        # Core ML package (preprocessing, training, inference)
-│   ├── data/               # Ingestion and preprocessing modules
-│   ├── models/             # XGBoost model artifacts and training scripts
-│   └── notebooks/          # Model evaluation and exploratory data analysis
-├── Dockerfile              # Production Docker build configuration
-├── pyproject.toml          # Local package configuration
-├── requirements.txt        # Python dependency manifest
-└── README.md
-```
-
----
-
 ## 🚀 Quickstart & Running the API
 
 ### Option 1: Running with Docker (Recommended)
