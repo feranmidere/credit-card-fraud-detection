@@ -1,47 +1,123 @@
-# Credit Card Fraud Detection
+# 💳 Credit Card Fraud Detection Pipeline & API
 
-This project analyzes **credit card fraud data** and builds machine learning models to detect fraudulent transactions. It uses classical ML methods and advanced models such as XGBoost, with a focus on handling **imbalanced datasets** effectively.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
+![XGBoost](https://img.shields.io/badge/XGBoost-ML-FF6F00?logo=xgboost)
+![Scikit-Learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikit-learn)
 
-**Key dependencies:**
-
-* scikit-learn
-* numpy
-* scipy
-* matplotlib
-* seaborn
-* xgboost
-* joblib
-* pandas
-* kaggle
-* pathlib
-* zipfile
-* imbalanced-learn (imblearn)
-
-In order to reproduce the results, run the runner.py file in the src folder.
-
-## Features
-
-* Exploratory data analysis (EDA)
-* Preprocessing and feature scaling
-* Handling class imbalance (SMOTE, undersampling)
-* Model training and evaluation (Logistic Regression, Random Forest, XGBoost)
-* Precision-Recall analysis and ROC curves
-* Model saving/loading with `joblib`
+An end-to-end Machine Learning microservice designed to detect real-time fraudulent credit card transactions. This repository features a production-ready ML architecture—from automated data preprocessing and cost-sensitive class balancing using XGBoost to high-performance inference via a containerized **FastAPI** RESTful API.
 
 ---
 
-## Results
+## 📌 Architecture & Key Features
 
-* Evaluation metrics include **Precision, Recall, F1-score, ROC AUC, and PR AUC**.
-* Trade-offs between precision and recall are explored in the context of fraud detection.
+- **Modular Architecture**: Built with a clean separation of concerns between model development, training pipelines, and API serving layers.
+- **Optimized Imbalance Handling**: Empirical evaluation demonstrated that tuning **XGBoost class weights (`scale_pos_weight`)** outperformed oversampling techniques like SMOTE—minimizing false positives while maximizing fraud detection recall.
+- **FastAPI REST Service**: Low-latency REST API leveraging Pydantic schemas for automated payload validation and error handling.
+- **Containerized Deployment**: Packaged using **Docker** for seamless local execution or cloud deployment.
+- **Dataset**: Trained on the benchmark [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud).
 
 ---
 
-## License
+## 🛠️ Tech Stack
 
-This project is released under the **MIT License**.
+- **Language**: Python 3.10+
+- **Machine Learning**: XGBoost, Scikit-Learn, Pandas, NumPy
+- **API Framework**: FastAPI, Uvicorn, Pydantic
+- **Containerization**: Docker
 
-The dataset is licensed separately by the original authors:
+---
 
-* **Dataset**: [Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud)
-* **Dataset License**: [Database: Open Database, Contents: Database Contents](http://opendatacommons.org/licenses/dbcl/1.0/)
+## 📂 Project Structure
+
+```text
+credit-card-fraud-detection/
+├── app/                    # FastAPI microservice application
+│   └── main.py             # API endpoints, request validation & logic
+├── fraud_detection/        # Core ML package (preprocessing, training, inference)
+│   ├── data/               # Ingestion and preprocessing modules
+│   ├── models/             # XGBoost model artifacts and training scripts
+│   └── notebooks/          # Model evaluation and exploratory data analysis
+├── Dockerfile              # Production Docker build configuration
+├── pyproject.toml          # Local package configuration
+├── requirements.txt        # Python dependency manifest
+└── README.md
+```
+
+---
+
+## 🚀 Quickstart & Running the API
+
+### Option 1: Running with Docker (Recommended)
+
+1. **Build the Docker image:**
+```bash
+   docker build -t fraud-detection-api .
+```
+
+2. **Run the container:**
+```bash
+   docker run -p 8000:8000 fraud-detection-api
+```
+
+3. **Explore the Interactive Docs:**
+   Open your browser and navigate to `http://localhost:8000/docs`.
+
+---
+
+### Option 2: Local Setup
+
+1. **Clone the repository:**
+```bash
+   git clone [https://github.com/feranmidere/credit-card-fraud-detection.git](https://github.com/feranmidere/credit-card-fraud-detection.git)
+   cd credit-card-fraud-detection
+```
+
+2. **Create and activate a virtual environment:**
+```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. **Install dependencies:**
+```bash
+   pip install -r requirements.txt
+   pip install -e .
+```
+
+4. **Start the Uvicorn server:**
+```bash
+   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+---
+
+## 📊 Dataset & Class Imbalance Strategy
+
+The dataset contains anonymized European cardholder transactions from the [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud).
+
+### Why XGBoost Class Weights over SMOTE?
+With extreme class imbalance, traditional accuracy is misleading. During model evaluation, synthetic oversampling (SMOTE) introduced unnecessary variance and increased false positive rates. 
+
+Instead, utilizing **XGBoost's `scale_pos_weight` parameter** significantly improved the model's **PR-AUC (Precision-Recall Area Under Curve)** and **Recall**, allowing the classifier to focus heavily on positive fraud instances without synthetic noise.
+
+---
+
+## 🔌 API Testing via Interactive Interface
+
+The API is equipped with automatic OpenAPI documentation. Once the server is running, navigate directly to:
+
+👉 **`http://localhost:8000/docs`**
+
+The interactive **Swagger UI** interface allows you to:
+- Inspect all request models and feature schemas automatically generated by Pydantic.
+- Test endpoints directly in your browser using the **"Try it out"** button.
+- Send sample payloads to `/predict` and observe real-time predictions and fraud probability scores.
+
+---
+
+## 👨‍💻 Author
+
+**Feranmi**
+- GitHub: [@feranmidere](https://github.com/feranmidere)
