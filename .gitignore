@@ -1,6 +1,7 @@
 data/creditcard.csv
 data/test.csv
 data/train.csv
+!data/.gitkeep
 *.egg-info/
 __pycache__/
 *.py[cod]
